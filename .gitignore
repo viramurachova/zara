@@ -45,4 +45,6 @@ coverage/
 # ====================
 *.orig
 *.rej
-
+# Auth and cookies files
+zara-auth.json
+zara-cookies.json
