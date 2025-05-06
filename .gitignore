@@ -1,0 +1,48 @@
+
+# ====================
+# Playwright Artifacts
+# ====================
+node_modules/
+test-results/
+playwright-report/
+blob-report/
+playwright/.cache/
+*.zip
+*.tmp
+
+# ===============
+# Logs
+# ===============
+*.log
+
+# ===============
+# CI/CD
+# ===============
+.github/*.log
+
+# =====================
+# IDE and Editor files
+# =====================
+.vscode/
+.idea/
+
+# ====================
+# OS-specific files
+# ====================
+.DS_Store
+Thumbs.db
+
+# ====================
+# Build / Coverage / Env
+# ====================
+dist/
+build/
+coverage/
+.env
+
+# ====================
+# Git merge artifacts
+# ====================
+*.orig
+*.rej
+
