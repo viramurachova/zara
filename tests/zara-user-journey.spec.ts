@@ -7,7 +7,7 @@ test.describe('Unauthenticated User Attempts to Register with Invalid Data Durin
 
   test('TC 1: Search Item by Name', async ({ pageWithCookies }) => {
     const mainPage = new MainPage(pageWithCookies);
-    const itemName = 'top';
+    const itemName = 'dress';
 
     await mainPage.clickSearchButton();
     await mainPage.fillSearchField(itemName);
@@ -24,8 +24,8 @@ test.describe('Unauthenticated User Attempts to Register with Invalid Data Durin
   test('TC 2: Add All Available Sizes to Shopping Bag if Available Sizes ≥ 4', async ({ pageWithCookies, page }) => {
     const mainPage = new MainPage(pageWithCookies);
     const shoppingBagPage = new ShoppingBagPage(page);
-    const itemName = 'top';
-    const minSizes = 5;
+    const itemName = 'dress';
+    const minSizes = 4;
 
     await mainPage.clickSearchButton();
     await mainPage.fillSearchField(itemName);
@@ -54,8 +54,8 @@ test.describe('Unauthenticated User Attempts to Register with Invalid Data Durin
   test('TC 3: Remove every second item from the shopping bag', async ({ pageWithCookies, page }) => {
     const mainPage = new MainPage(pageWithCookies);
     const shoppingBagPage = new ShoppingBagPage(page);
-    const itemName = 'top';
-    const minSizes = 6;
+    const itemName = 'dress';
+    const minSizes = 4;
 
     await mainPage.clickSearchButton();
     await mainPage.fillSearchField(itemName);
