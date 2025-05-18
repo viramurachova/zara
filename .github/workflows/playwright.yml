@@ -33,6 +33,9 @@ jobs:
         env:
           ZARA_COOKIES_BASE64: ${{ secrets.ZARA_COOKIES_BASE64 }}
 
+      - name: Debug list contents of storage/
+        run: ls -lh storage
+
       - name: Run Playwright tests
         run: npx playwright test
 

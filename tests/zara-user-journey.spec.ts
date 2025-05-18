@@ -9,6 +9,8 @@ test.describe('Unauthenticated User Attempts to Register with Invalid Data Durin
     const itemName = 'dress';
 
     await page.goto('/');
+    console.log(' Current URL:', page.url());
+    await page.screenshot({ path: 'screenshot.png' });
     await mainPage.clickSearchButton();
     await mainPage.fillSearchField(itemName);
 
@@ -28,6 +30,8 @@ test.describe('Unauthenticated User Attempts to Register with Invalid Data Durin
     const minSizes = 4;
 
     await page.goto('/');
+    console.log('Current URL:', page.url());
+    await page.screenshot({ path: 'screenshot.png' });
     await mainPage.clickSearchButton();
     await mainPage.fillSearchField(itemName);
 
@@ -59,6 +63,8 @@ test.describe('Unauthenticated User Attempts to Register with Invalid Data Durin
     const minSizes = 4;
 
     await page.goto('/');
+    console.log('🌐 Current URL:', page.url());
+    await page.screenshot({ path: 'screenshot.png' });
     await mainPage.clickSearchButton();
     await mainPage.fillSearchField(itemName);
     await mainPage.addFirstItemWithEnoughSizes(minSizes);
