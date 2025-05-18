@@ -10,7 +10,7 @@ export default defineConfig({
 
   use: {
     baseURL: 'https://www.zara.com/',
-    headless: process.env.CI ? true : false, 
+    headless: false, 
     viewport: { width: 1280, height: 720 },
     userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 13_0_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36',
     storageState: 'storage/zara-cookies-only.json',
