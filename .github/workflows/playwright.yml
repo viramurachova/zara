@@ -9,7 +9,7 @@ on:
 jobs:
   test:
     name: E2E Tests
-    runs-on: ubuntu-22.04
+    runs-on: runs-on: ubuntu-22.04
 
     steps:
       - name: Checkout repository
@@ -31,7 +31,7 @@ jobs:
 
       - name: Upload test artifacts on failure
         if: failure()
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v2.3.1
         with:
           name: playwright-report
           path: playwright-report/
