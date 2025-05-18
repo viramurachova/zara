@@ -11,8 +11,8 @@ export default defineConfig({
   reporter: 'html',
 
   use: {
-    baseURL: 'https://www.zara.com/ua/en/',
-    headless: false,
+    baseURL: 'https://www.zara.com/',
+    headless: true,
     viewport: { width: 1280, height: 720 },
     userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 13_0_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36',
   },
@@ -33,7 +33,7 @@ export default defineConfig({
     //   use: { ...devices['Desktop Safari'] },
     // },
 
-    
+
     // {
     //   name: 'Mobile Chrome',
     //   use: { ...devices['Pixel 5'] },
@@ -43,7 +43,7 @@ export default defineConfig({
     //   use: { ...devices['iPhone 12'] },
     // },
 
-   
+
     // {
     //   name: 'Microsoft Edge',
     //   use: { ...devices['Desktop Edge'], channel: 'msedge' },

@@ -1,20 +1,15 @@
-# .github/workflows/playwright.yml
-name: Playwright Tests
+name: Run Playwright Tests
 
 on:
   push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+    branches:
+      - main  
+  pull_request:  
 
 jobs:
   test:
-    name: Run tests on Chromium, Firefox and WebKit
+    name: E2E Tests
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        browser: [chromium, firefox, webkit]
 
     steps:
       - name: Checkout repository
@@ -23,7 +18,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '20'
+          node-version: 20
 
       - name: Install dependencies
         run: npm ci
@@ -31,12 +26,12 @@ jobs:
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
 
-      - name: Run Playwright tests on ${{ matrix.browser }}
-        run: npx playwright test --project=${{ matrix.browser }}
+      - name: Run Playwright tests
+        run: npx playwright test
 
-      - name: Upload test report
+      - name: Upload test artifacts on failure
         if: failure()
         uses: actions/upload-artifact@v3
         with:
           name: playwright-report
-          path: playwright-report
+          path: playwright-report/

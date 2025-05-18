@@ -1,5 +1,4 @@
 import { Page, Locator } from '@playwright/test';
-
 export class ModalPage {
     page: Page;
     acceptCookiesButton: Locator;
