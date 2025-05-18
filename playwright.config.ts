@@ -2,8 +2,6 @@ import { defineConfig, devices } from '@playwright/test';
 
 export default defineConfig({
   testDir: './tests',
-
-
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
@@ -12,7 +10,7 @@ export default defineConfig({
 
   use: {
     baseURL: 'https://www.zara.com/',
-    headless: false,
+    headless: process.env.CI ? true : false, 
     viewport: { width: 1280, height: 720 },
     userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 13_0_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36',
     storageState: 'storage/zara-cookies-only.json',
@@ -34,7 +32,6 @@ export default defineConfig({
     //   use: { ...devices['Desktop Safari'] },
     // },
 
-
     // {
     //   name: 'Mobile Chrome',
     //   use: { ...devices['Pixel 5'] },
@@ -43,7 +40,6 @@ export default defineConfig({
     //   name: 'Mobile Safari',
     //   use: { ...devices['iPhone 12'] },
     // },
-
 
     // {
     //   name: 'Microsoft Edge',
