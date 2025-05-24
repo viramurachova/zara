@@ -27,24 +27,22 @@ export const test = base.extend<{
 
     await page.addStyleTag({
       content: `
-        #onetrust-consent-sdk,
-        .optanon-alert-box-wrapper,
-        .zds-cookie-banner,
-        .zds-dialog-geolocation,
-        .zds-dialog,
-        .zds-overlay,
-        [aria-label="Cookie banner"],
-        [aria-label="Preferences Center"],
-        [aria-label="Geolocation Modal"],
-        [aria-label="Close"]:not([data-qa-action]) {
-          display: none !important;
-          visibility: hidden !important;
-          pointer-events: none !important;
-        }
+    .geolocation-modal__container {
+      display: none !important;
+      visibility: hidden !important;
+      pointer-events: none !important;
+    }
+    #onetrust-consent-sdk,
+    .optanon-alert-box-wrapper,
+    .zds-cookie-banner {
+      display: none !important;
+      visibility: hidden !important;
+      pointer-events: none !important;
+    }
       `,
     });
 
     await use(page);
-    await context.close();
+    await browser.close();
   },
 });
