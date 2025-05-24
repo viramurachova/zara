@@ -54,7 +54,7 @@ test.describe('Unauthenticated User Attempts to Register with Invalid Data Durin
   test('TC 3: Remove every second item from the shopping bag', async ({ pageWithCookies }) => {
     const mainPage = new MainPage(pageWithCookies);
     const shoppingBagPage = new ShoppingBagPage(pageWithCookies);
-    const itemName = 'jeans';
+    const itemName = 'boots';
     const minSizes = 4;
 
     await mainPage.clickSearchButton();
