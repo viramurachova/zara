@@ -27,15 +27,16 @@ export const test = base.extend<{
 
     await page.addStyleTag({
         content: `
-          .zds-cookie-banner,
-          .optanon-alert-box-wrapper,
-          #onetrust-consent-sdk,
-          .geolocation-modal__container {
-            display: none !important;
-            visibility: hidden !important;
-            pointer-events: none !important;
-          }
-        `,
+        #onetrust-consent-sdk,
+        .optanon-alert-box-wrapper,
+        .zds-cookie-banner,
+        .zds-dialog-geolocation,
+        .geolocation-modal__container {
+          display: none !important;
+          visibility: hidden !important;
+          pointer-events: none !important;
+        }
+      `,
     });
 
     await use(page);

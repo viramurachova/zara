@@ -25,7 +25,7 @@ export class MainPage {
     this.productName = page.locator('.product-grid-product-info__main-info');
     this.availableSize = page.locator('.size-selector-sizes__size.size-selector-sizes-size.size-selector-sizes-size--enabled');
     this.lowAvailableSize = page.locator('[data-qa-action="size-low-on-stock"]');
-    this.closeButton = page.locator('[aria-label="close"]');
+    this.closeButton = page.locator('.zds-drawer-close-button');
     this.continueButton = page.locator('[data-qa-id="shop-continue"]');
 
   }
