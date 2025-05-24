@@ -3,8 +3,6 @@ import { expect } from '@playwright/test';
 import { MainPage } from '../src/pages/MainPage';
 import { ShoppingBagPage } from '../src/pages/ShoppingBagPage';
 
-
-
 test.describe('Unauthenticated User Attempts to Register with Invalid Data During Checkout', () => {
 
   test('TC 1: Search Item by Name', async ({ page }) => {
