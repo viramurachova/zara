@@ -1,14 +1,19 @@
-import { test as base, Page } from '@playwright/test';
+import { test as base, Page, Browser } from '@playwright/test';
 import { chromium as extraChromium } from 'playwright-extra';
 import StealthPlugin from 'puppeteer-extra-plugin-stealth';
 
 extraChromium.use(StealthPlugin());
 
+let browser: Browser; 
+
 export const test = base.extend<{
   pageWithCookies: Page;
 }>({
   pageWithCookies: async ({}, use) => {
-    const browser = await extraChromium.launch({ headless: true });
+    if (!browser) {
+      browser = await extraChromium.launch({ headless: true });
+    }
+
     const context = await browser.newContext({
       locale: 'uk-UA',
       geolocation: { latitude: 50.4501, longitude: 30.5234 },
@@ -35,6 +40,6 @@ export const test = base.extend<{
     }
 
     await use(page);
-    await context.close();
+    await context.close(); 
   }
 });
