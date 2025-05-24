@@ -1,5 +1,4 @@
 import { test as base, expect, Page, Browser, BrowserContext } from '@playwright/test';
-import { chromium as playwrightChromium } from '@playwright/test';
 import { chromium as extraChromium } from 'playwright-extra';
 import StealthPlugin from 'puppeteer-extra-plugin-stealth';
 
@@ -20,16 +19,19 @@ export const test = base.extend<{
 
     const page: Page = await context.newPage();
 
-    // Додатковий захист — встановимо Accept-Language
+    // Додатково: мова інтерфейсу браузера
     await page.setExtraHTTPHeaders({
-      'Accept-Language': 'uk-UA,uk;q=0.9,en;q=0.8'
+      'Accept-Language': 'en-US,en;q=0.9'
     });
 
-    // Переходимо на головну
-    await page.goto('/');
+    // 🎯 Переходимо одразу на український сайт з англійською мовою
+    await page.goto('https://www.zara.com/ua/en/');
+
+    // ✅ Лог для дебагу
+    console.log('🌐 Loaded URL:', await page.url());
 
     const acceptCookiesButton = page.locator('#onetrust-accept-btn-handler');
-    const goToStoreButton = page.locator('[data-qa-action="go-to-store"]');
+    const goToStoreButton = page.locator('[data-qa-action="stay-in-store"]');
 
     await acceptCookiesButton.waitFor({ state: 'visible' });
     await acceptCookiesButton.click();
