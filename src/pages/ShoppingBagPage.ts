@@ -20,7 +20,8 @@ export class ShoppingBagPage {
   }
 
   async getAllProductNames(): Promise<string[]> {
-    await this.productNames.first().waitFor({ state: 'visible', timeout: 5000 });
+    await this.productNames.first().waitFor({ state: 'attached', timeout: 5000 });
+    //await this.productNames.first().waitFor({ state: 'visible', timeout: 5000 });
     const count = await this.productNames.count();
     const names: string[] = [];
 
@@ -67,7 +68,7 @@ export class ShoppingBagPage {
       await deleteButton.click({ force: true });
 
       console.log(`Clicked removeButton for Order ID: ${orderId}`);
-      await this.page.waitForTimeout(5000);
+      await deleteButtonByID.waitFor({ state: 'detached', timeout: 7000 });
     }
 
     const remainingOrderIds = await this.getAllOrderIds();
