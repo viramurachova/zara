@@ -28,7 +28,7 @@ test.describe('Unauthenticated User Attempts to Register with Invalid Data Durin
     await browser.close();
   });
 
-  test.skip('TC 1: Search Item by Name', async () => {
+  test('TC 1: Search Item by Name', async () => {
     const mainPage = new MainPage(page);
     const itemName = 'top';
 
