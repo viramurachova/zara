@@ -4,6 +4,7 @@ import { ShoppingBagPage } from '../src/pages/ShoppingBagPage';
 import { Page, Browser, BrowserContext } from '@playwright/test';
 import { chromium } from 'playwright-extra';
 import StealthPlugin from 'puppeteer-extra-plugin-stealth';
+import {CookieConsentPage} from '../src/pages/CookieConsentPage'
 
 chromium.use(StealthPlugin());
 
@@ -29,21 +30,14 @@ test.describe('Unauthenticated User Attempts to Register with Invalid Data Durin
   });
 
   test('TC 1: Search Item by Name', async () => {
+    const cookieConsentPage = new CookieConsentPage(page);
     const mainPage = new MainPage(page);
     const itemName = 'top';
 
-    await page.goto('https://www.zara.com/ua/en/');
-    const acceptCookiesButton = page.locator('#onetrust-accept-btn-handler');
-    const goToStoreButton = page.locator('[data-qa-action="stay-in-store"]');
-
-    if (await acceptCookiesButton.isVisible({ timeout: 3000 })) {
-      await acceptCookiesButton.click();
-    }
-    if (await goToStoreButton.isVisible({ timeout: 3000 })) {
-      await goToStoreButton.click();
-    }
-
-
+    await page.goto('https://www.zara.com/');
+    await cookieConsentPage.acceptCookies();
+    await cookieConsentPage.goToStore();
+    
     await mainPage.clickSearchButton();
     await mainPage.fillSearchField(itemName);
 
@@ -56,22 +50,16 @@ test.describe('Unauthenticated User Attempts to Register with Invalid Data Durin
   });
 
   test('TC 2: Add All Available Sizes to Shopping Bag if Available Sizes ≥ 4', async () => {
+    const cookieConsentPage = new CookieConsentPage(page);
     const mainPage = new MainPage(page);
     const shoppingBagPage = new ShoppingBagPage(page);
     const itemName = 'boots';
     const minSizes = 4;
 
-    await page.goto('https://www.zara.com/ua/en/');
-
-    const acceptCookiesButton = page.locator('#onetrust-accept-btn-handler');
-    const goToStoreButton = page.locator('[data-qa-action="stay-in-store"]');
-
-    if (await acceptCookiesButton.isVisible({ timeout: 3000 })) {
-      await acceptCookiesButton.click();
-    }
-    if (await goToStoreButton.isVisible({ timeout: 3000 })) {
-      await goToStoreButton.click();
-    }
+    
+    await page.goto('https://www.zara.com/');
+    await cookieConsentPage.acceptCookies();
+    await cookieConsentPage.goToStore();
 
     await mainPage.clickSearchButton();
     await mainPage.fillSearchField(itemName);
@@ -90,22 +78,16 @@ test.describe('Unauthenticated User Attempts to Register with Invalid Data Durin
   });
 
   test('TC 3: Remove every second item from the shopping bag', async () => {
+    const cookieConsentPage = new CookieConsentPage(page);
     const mainPage = new MainPage(page);
     const shoppingBagPage = new ShoppingBagPage(page);
     const itemName = 'boots';
     const minSizes = 4;
 
-    await page.goto('https://www.zara.com/ua/en/');
-
-    const acceptCookiesButton = page.locator('#onetrust-accept-btn-handler');
-    const goToStoreButton = page.locator('[data-qa-action="stay-in-store"]');
-
-    if (await acceptCookiesButton.isVisible({ timeout: 3000 })) {
-      await acceptCookiesButton.click();
-    }
-    if (await goToStoreButton.isVisible({ timeout: 3000 })) {
-      await goToStoreButton.click();
-    }
+    
+    await page.goto('https://www.zara.com/');
+    await cookieConsentPage.acceptCookies();
+    await cookieConsentPage.goToStore();
 
     await mainPage.clickSearchButton();
     await mainPage.fillSearchField(itemName);

@@ -11,7 +11,7 @@ export class CookieConsentPage {
   }
 
   async acceptCookies(): Promise<void> {
-    await this.page.goto('/');
+    //await this.page.goto('/');
     await this.acceptCookiesButton.waitFor({ state: 'visible', timeout: 10000 });
     await this.acceptCookiesButton.click();
   }
