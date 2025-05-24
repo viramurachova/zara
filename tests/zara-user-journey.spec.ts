@@ -1,62 +1,79 @@
-import { test } from '../src/fixtures/cookieFixture';
-import { expect } from '@playwright/test';
+import { test, expect } from '@playwright/test';
 import { MainPage } from '../src/pages/MainPage';
 import { ShoppingBagPage } from '../src/pages/ShoppingBagPage';
+import { Page, Browser, BrowserContext } from '@playwright/test';
+import { chromium } from 'playwright-extra';
+import StealthPlugin from 'puppeteer-extra-plugin-stealth';
+
+chromium.use(StealthPlugin());
 
 test.describe('Unauthenticated User Attempts to Register with Invalid Data During Checkout', () => {
+  let browser: Browser;
+  let context: BrowserContext;
+  let page: Page;
 
-  test('TC 1: Search Item by Name', async ({ pageWithCookies }) => {
-    const mainPage = new MainPage(pageWithCookies);
+  test.beforeAll(async () => {
+    browser = await chromium.launch({ headless: true });
+    context = await browser.newContext({
+      locale: 'uk-UA',
+      geolocation: { latitude: 50.4501, longitude: 30.5234 },
+      permissions: ['geolocation'],
+      viewport: { width: 1280, height: 720 },
+    });
+    page = await context.newPage();
+  });
+
+  test.afterAll(async () => {
+    await context.close();
+    await browser.close();
+  });
+
+  test('TC 1: Search Item by Name', async () => {
+    const mainPage = new MainPage(page);
     const itemName = 'top';
 
+    await page.goto('https://www.zara.com/ua/en/');
     await mainPage.clickSearchButton();
     await mainPage.fillSearchField(itemName);
 
     const searchResults = await mainPage.getAllSearchResults(itemName);
     console.log('Search Results:', searchResults);
 
-    searchResults.forEach((result) => {
-      console.log(`Checking result: "${result}"`);
+    for (const result of searchResults) {
       expect(result.toLowerCase()).toContain(itemName.toLowerCase());
-    });
+    }
   });
 
-  test('TC 2: Add All Available Sizes to Shopping Bag if Available Sizes ≥ 4', async ({ pageWithCookies }) => {
-    const mainPage = new MainPage(pageWithCookies);
-    const shoppingBagPage = new ShoppingBagPage(pageWithCookies);
+  test('TC 2: Add All Available Sizes to Shopping Bag if Available Sizes ≥ 4', async () => {
+    const mainPage = new MainPage(page);
+    const shoppingBagPage = new ShoppingBagPage(page);
     const itemName = 'boots';
     const minSizes = 4;
 
+    await page.goto('https://www.zara.com/ua/en/');
     await mainPage.clickSearchButton();
     await mainPage.fillSearchField(itemName);
 
     const { productName, sizes: expectedSizes } = await mainPage.addFirstItemWithEnoughSizes(minSizes);
-    console.log('Added item name:', productName);
-    console.log('Added sizes:', expectedSizes);
 
     await mainPage.openShoppingBag();
     const actualNames = await shoppingBagPage.getAllProductNames();
     const actualSizes = await shoppingBagPage.getAllProductSizes();
-    console.log('Expected name:', productName);
-    console.log('Expected sizes:', expectedSizes);
-    console.log('Actual item names in bag:', actualNames);
-    console.log('Actual sizes in bag:', actualSizes);
 
     for (const actualName of actualNames) {
-      console.log(`Comparing item name: actual = "${actualName}", expected = "${productName}"`);
       expect(actualName).toBe(productName);
     }
 
     expect(actualSizes.sort()).toEqual(expectedSizes.sort());
-    await mainPage.clickContinueButton();
   });
 
-  test('TC 3: Remove every second item from the shopping bag', async ({ pageWithCookies }) => {
-    const mainPage = new MainPage(pageWithCookies);
-    const shoppingBagPage = new ShoppingBagPage(pageWithCookies);
+  test('TC 3: Remove every second item from the shopping bag', async () => {
+    const mainPage = new MainPage(page);
+    const shoppingBagPage = new ShoppingBagPage(page);
     const itemName = 'boots';
     const minSizes = 4;
 
+    await page.goto('https://www.zara.com/ua/en/');
     await mainPage.clickSearchButton();
     await mainPage.fillSearchField(itemName);
     await mainPage.addFirstItemWithEnoughSizes(minSizes);
@@ -69,19 +86,16 @@ test.describe('Unauthenticated User Attempts to Register with Invalid Data Durin
     const updatedProductSizesInBag = await shoppingBagPage.getAllProductSizes();
 
     const expectedRemainingSizes = productSizesInBag.filter((_, index) => index % 2 === 0);
-
-    console.log('Expected remaining sizes:', expectedRemainingSizes);
-    console.log('Remaining sizes in cart after removal:', updatedProductSizesInBag);
-
     expect(updatedProductSizesInBag.sort()).toEqual(expectedRemainingSizes.sort());
   });
 
-  test.skip('TC 4:  Proceed to Checkout for Unauthenticated User ', async ({ page }) => {
-
-  });
-
-  test.skip('TC 5: Register with Incorrect Data and error handling', async ({ page }) => {
-
-  });
-
-});  
+});
+  
+  
+  
+  
+  
+  
+  
+  
+  
