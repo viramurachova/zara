@@ -1,18 +1,29 @@
-import { test as base, expect, Page, Browser } from '@playwright/test';
+import { test as base, expect, Page, Browser, BrowserContext } from '@playwright/test';
 import { chromium as playwrightChromium } from '@playwright/test';
 import { chromium as extraChromium } from 'playwright-extra';
 import StealthPlugin from 'puppeteer-extra-plugin-stealth';
 
-// Додаємо stealth-плагін до playwright-extra Chromium
 extraChromium.use(StealthPlugin());
 
 export const test = base.extend<{
   pageWithCookies: Page;
 }>({
   pageWithCookies: async ({}, use) => {
-    // Лаунчимо браузер з Stealth
     const browser: Browser = await extraChromium.launch({ headless: true });
-    const page: Page = await browser.newPage();
+
+    const context: BrowserContext = await browser.newContext({
+      locale: 'uk-UA',
+      geolocation: { latitude: 50.4501, longitude: 30.5234 }, // Київ, Україна
+      permissions: ['geolocation'],
+      viewport: { width: 1280, height: 720 },
+    });
+
+    const page: Page = await context.newPage();
+
+    // Додатковий захист — встановимо Accept-Language
+    await page.setExtraHTTPHeaders({
+      'Accept-Language': 'uk-UA,uk;q=0.9,en;q=0.8'
+    });
 
     // Переходимо на головну
     await page.goto('/');
@@ -26,10 +37,7 @@ export const test = base.extend<{
     await goToStoreButton.waitFor({ state: 'visible' });
     await goToStoreButton.click();
 
-    // Передаємо сторінку з cookies у тести
     await use(page);
-
-    // Закриваємо браузер після тесту
     await browser.close();
   }
 });
