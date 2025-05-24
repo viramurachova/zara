@@ -88,6 +88,25 @@ test.describe('Unauthenticated User Attempts to Register with Invalid Data Durin
 
     
     await page.goto('https://www.zara.com/');
+    await page.addStyleTag({
+      content: `
+        #onetrust-consent-sdk,
+        .optanon-alert-box-wrapper,
+        .zds-cookie-banner,
+        .zds-dialog-geolocation,
+        .zds-dialog,
+        .zds-overlay,
+        [aria-label="Cookie banner"],
+        [aria-label="Preferences Center"],
+        [aria-label="Geolocation Modal"],
+        [aria-label="Close"]:not([data-qa-action]) {
+          display: none !important;
+          visibility: hidden !important;
+          pointer-events: none !important;
+        }
+      `
+    });
+    
     await cookieConsentPage.goToStore();
     await cookieConsentPage.acceptCookies();
     await cookieConsentPage.closePromoBannerIfVisible();
