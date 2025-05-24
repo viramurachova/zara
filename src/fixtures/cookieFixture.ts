@@ -40,6 +40,5 @@ export const test = base.extend<{
     }
 
     await use(page);
-    await context.close(); 
   }
 });
