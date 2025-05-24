@@ -4,10 +4,11 @@ import { MainPage } from '../src/pages/MainPage';
 import { ShoppingBagPage } from '../src/pages/ShoppingBagPage';
 import { launchStealthPage } from '../src/utils/stealthBrowser';
 
+
 test.describe('Unauthenticated User Attempts to Register with Invalid Data During Checkout', () => {
 
   test('TC 1: Search Item by Name', async () => {
-    const page = await launchStealthPage(); 
+    const { page, context, browser } = await launchStealthPage();
     const mainPage = new MainPage(page);
     const itemName = 'top';
 
@@ -17,14 +18,17 @@ test.describe('Unauthenticated User Attempts to Register with Invalid Data Durin
     const searchResults = await mainPage.getAllSearchResults(itemName);
     console.log('Search Results:', searchResults);
 
-    searchResults.forEach((result) => {
+    for (const result of searchResults) {
       console.log(`Checking result: "${result}"`);
       expect(result.toLowerCase()).toContain(itemName.toLowerCase());
-    });
+    }
+
+    await context.close();
+    await browser.close();
   });
 
   test('TC 2: Add All Available Sizes to Shopping Bag if Available Sizes ≥ 4', async () => {
-    const page = await launchStealthPage();
+    const { page, context, browser } = await launchStealthPage();
     const mainPage = new MainPage(page);
     const shoppingBagPage = new ShoppingBagPage(page);
     const itemName = 'boots';
@@ -52,10 +56,13 @@ test.describe('Unauthenticated User Attempts to Register with Invalid Data Durin
 
     expect(actualSizes.sort()).toEqual(expectedSizes.sort());
     await mainPage.clickContinueButton();
+
+    await context.close();
+    await browser.close();
   });
 
   test('TC 3: Remove every second item from the shopping bag', async () => {
-    const page = await launchStealthPage();
+    const { page, context, browser } = await launchStealthPage();
     const mainPage = new MainPage(page);
     const shoppingBagPage = new ShoppingBagPage(page);
     const itemName = 'boots';
@@ -78,15 +85,24 @@ test.describe('Unauthenticated User Attempts to Register with Invalid Data Durin
     console.log('Remaining sizes in cart after removal:', updatedProductSizesInBag);
 
     expect(updatedProductSizesInBag.sort()).toEqual(expectedRemainingSizes.sort());
+
+    await context.close();
+    await browser.close();
   });
 
   test.skip('TC 4:  Proceed to Checkout for Unauthenticated User ', async () => {
-    const page = await launchStealthPage();
+    const { page, context, browser } = await launchStealthPage();
+
+    await context.close();
+    await browser.close();
 
   });
 
   test.skip('TC 5: Register with Incorrect Data and error handling', async () => {
-    const page = await launchStealthPage();
+    const { page, context, browser } = await launchStealthPage();
+
+    await context.close();
+    await browser.close();
 
   });
 
