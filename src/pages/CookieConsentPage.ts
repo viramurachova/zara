@@ -8,7 +8,7 @@ export class CookieConsentPage {
   constructor(page: Page) {
     this.page = page;
     this.acceptCookiesButton = page.locator('#onetrust-accept-btn-handler');
-    this.goToStoreButton = page.locator('[data-qa-action="go-to-geo-store"]');
+    this.goToStoreButton = page.locator('[data-qa-action="stay-in-store"]');
     this.closePromoBannerButton = page.locator('[aria-label="Close"]');
   }
 

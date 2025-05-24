@@ -35,7 +35,7 @@ test.describe('Unauthenticated User Attempts to Register with Invalid Data Durin
     const itemName = 'top';
 
     await page.goto('https://www.zara.com/ua/en/');
-    await cookieConsentPage.acceptCookies();
+    //await cookieConsentPage.acceptCookies();
     await cookieConsentPage.goToStore();
     
     await mainPage.clickSearchButton();
@@ -58,7 +58,7 @@ test.describe('Unauthenticated User Attempts to Register with Invalid Data Durin
 
     
     await page.goto('https://www.zara.com/ua/en/');
-    await cookieConsentPage.acceptCookies();
+    //await cookieConsentPage.acceptCookies();
     await cookieConsentPage.goToStore();
     
     await mainPage.clickSearchButton();
@@ -86,7 +86,7 @@ test.describe('Unauthenticated User Attempts to Register with Invalid Data Durin
 
     
     await page.goto('https://www.zara.com/ua/en/');
-    await cookieConsentPage.acceptCookies();
+   // await cookieConsentPage.acceptCookies();
     await cookieConsentPage.goToStore();
     
 
