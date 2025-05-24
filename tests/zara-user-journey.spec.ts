@@ -33,6 +33,15 @@ test.describe('Unauthenticated User Attempts to Register with Invalid Data Durin
     const itemName = 'top';
 
     await page.goto('https://www.zara.com/ua/en/');
+    const acceptCookiesButton = page.locator('#onetrust-accept-btn-handler');
+    const goToStoreButton = page.locator('[data-qa-action="stay-in-store"]');
+
+    await acceptCookiesButton.waitFor({ state: 'visible' });
+    await acceptCookiesButton.click();
+
+    await goToStoreButton.waitFor({ state: 'visible' });
+    await goToStoreButton.click();
+    
     await mainPage.clickSearchButton();
     await mainPage.fillSearchField(itemName);
 
@@ -51,6 +60,16 @@ test.describe('Unauthenticated User Attempts to Register with Invalid Data Durin
     const minSizes = 4;
 
     await page.goto('https://www.zara.com/ua/en/');
+
+    const acceptCookiesButton = page.locator('#onetrust-accept-btn-handler');
+    const goToStoreButton = page.locator('[data-qa-action="stay-in-store"]');
+
+    await acceptCookiesButton.waitFor({ state: 'visible' });
+    await acceptCookiesButton.click();
+
+    await goToStoreButton.waitFor({ state: 'visible' });
+    await goToStoreButton.click();
+
     await mainPage.clickSearchButton();
     await mainPage.fillSearchField(itemName);
 
@@ -74,6 +93,17 @@ test.describe('Unauthenticated User Attempts to Register with Invalid Data Durin
     const minSizes = 4;
 
     await page.goto('https://www.zara.com/ua/en/');
+
+    const acceptCookiesButton = page.locator('#onetrust-accept-btn-handler');
+    const goToStoreButton = page.locator('[data-qa-action="stay-in-store"]');
+
+    await acceptCookiesButton.waitFor({ state: 'visible' });
+    await acceptCookiesButton.click();
+
+    await goToStoreButton.waitFor({ state: 'visible' });
+    await goToStoreButton.click();
+
+
     await mainPage.clickSearchButton();
     await mainPage.fillSearchField(itemName);
     await mainPage.addFirstItemWithEnoughSizes(minSizes);
