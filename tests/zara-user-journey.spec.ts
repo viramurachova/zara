@@ -2,24 +2,15 @@ import { test } from '../src/fixtures/cookieFixture';
 import { expect } from '@playwright/test';
 import { MainPage } from '../src/pages/MainPage';
 import { ShoppingBagPage } from '../src/pages/ShoppingBagPage';
+import { launchStealthPage } from '../src/utils/stealthBrowser';
+
 
 test.describe('Unauthenticated User Attempts to Register with Invalid Data During Checkout', () => {
 
-  test('TC 1: Search Item by Name', async ({ page }) => {
+  test('TC 1: Search Item by Name', async () => {
+    const { page, context, browser } = await launchStealthPage();
     const mainPage = new MainPage(page);
     const itemName = 'top';
-
-    await page.goto('https://www.zara.com/ua/en/');
-
-    const acceptCookies = page.locator('#onetrust-accept-btn-handler');
-    if (await acceptCookies.isVisible({ timeout: 3000 })) {
-      await acceptCookies.click();
-    }
-
-    const stayInStore = page.locator('[data-qa-action="stay-in-store"]');
-    if (await stayInStore.isVisible({ timeout: 3000 })) {
-      await stayInStore.click();
-    }
 
     await mainPage.clickSearchButton();
     await mainPage.fillSearchField(itemName);
@@ -31,27 +22,17 @@ test.describe('Unauthenticated User Attempts to Register with Invalid Data Durin
       console.log(`Checking result: "${result}"`);
       expect(result.toLowerCase()).toContain(itemName.toLowerCase());
     }
+
+    await context.close();
+    await browser.close();
   });
 
-  test('TC 2: Add All Available Sizes to Shopping Bag if Available Sizes ≥ 4', async ({ page }) => {
-    
+  test('TC 2: Add All Available Sizes to Shopping Bag if Available Sizes ≥ 4', async () => {
+    const { page, context, browser } = await launchStealthPage();
     const mainPage = new MainPage(page);
     const shoppingBagPage = new ShoppingBagPage(page);
     const itemName = 'boots';
     const minSizes = 4;
-
-    await page.goto('https://www.zara.com/ua/en/');
-
-    const acceptCookies = page.locator('#onetrust-accept-btn-handler');
-    if (await acceptCookies.isVisible({ timeout: 3000 })) {
-      await acceptCookies.click();
-    }
-
-    const stayInStore = page.locator('[data-qa-action="stay-in-store"]');
-    if (await stayInStore.isVisible({ timeout: 3000 })) {
-      await stayInStore.click();
-    }
-
 
     await mainPage.clickSearchButton();
     await mainPage.fillSearchField(itemName);
@@ -75,26 +56,17 @@ test.describe('Unauthenticated User Attempts to Register with Invalid Data Durin
 
     expect(actualSizes.sort()).toEqual(expectedSizes.sort());
     await mainPage.clickContinueButton();
+
+    await context.close();
+    await browser.close();
   });
 
-  test('TC 3: Remove every second item from the shopping bag', async ({ page }) => {
+  test('TC 3: Remove every second item from the shopping bag', async () => {
+    const { page, context, browser } = await launchStealthPage();
     const mainPage = new MainPage(page);
     const shoppingBagPage = new ShoppingBagPage(page);
     const itemName = 'boots';
     const minSizes = 4;
-
-    await page.goto('https://www.zara.com/ua/en/');
-
-    const acceptCookies = page.locator('#onetrust-accept-btn-handler');
-    if (await acceptCookies.isVisible({ timeout: 3000 })) {
-      await acceptCookies.click();
-    }
-
-    const stayInStore = page.locator('[data-qa-action="stay-in-store"]');
-    if (await stayInStore.isVisible({ timeout: 3000 })) {
-      await stayInStore.click();
-    }
-
 
     await mainPage.clickSearchButton();
     await mainPage.fillSearchField(itemName);
@@ -114,14 +86,24 @@ test.describe('Unauthenticated User Attempts to Register with Invalid Data Durin
 
     expect(updatedProductSizesInBag.sort()).toEqual(expectedRemainingSizes.sort());
 
+    await context.close();
+    await browser.close();
   });
 
-  test.skip('TC 4:  Proceed to Checkout for Unauthenticated User ', async ({ page }) => {
-    
+  test.skip('TC 4:  Proceed to Checkout for Unauthenticated User ', async () => {
+    const { page, context, browser } = await launchStealthPage();
+
+    await context.close();
+    await browser.close();
+
   });
 
-  test.skip('TC 5: Register with Incorrect Data and error handling', async ({ page }) => {
-    
+  test.skip('TC 5: Register with Incorrect Data and error handling', async () => {
+    const { page, context, browser } = await launchStealthPage();
+
+    await context.close();
+    await browser.close();
+
   });
 
 });  

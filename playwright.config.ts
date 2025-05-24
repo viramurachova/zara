@@ -12,7 +12,10 @@ export default defineConfig({
     baseURL: 'https://www.zara.com/',
     viewport: { width: 1280, height: 720 },
     userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 13_0_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36',
-    headless: true
+    headless: true,
+    screenshot: 'only-on-failure',  
+    video: 'retain-on-failure',    
+    trace: 'retain-on-failure',
   },
   projects: [
     {

@@ -1,24 +1,18 @@
-// import { test as base } from '@playwright/test';
-// import { chromium } from 'playwright-extra';
-// import StealthPlugin from 'puppeteer-extra-plugin-stealth';
-// import type { Page, BrowserContext, Browser } from '@playwright/test';
+// src/utils/launchStealthPage.ts
+import { chromium } from 'playwright-extra';
+import StealthPlugin from 'puppeteer-extra-plugin-stealth';
 
-// chromium.use(StealthPlugin());
+chromium.use(StealthPlugin());
 
-// export const test = base.extend<{ page: Page }>({
-//   page: async ({}, use) => {
-//     const browser: Browser = await chromium.launch({ headless: true });
-//     const context: BrowserContext = await browser.newContext({
-//       locale: 'uk-UA',
-//       geolocation: { latitude: 50.4501, longitude: 30.5234 },
-//       permissions: ['geolocation'],
-//       viewport: { width: 1280, height: 720 },
-//     });
-//     const page = await context.newPage();
+export async function launchStealthPage() {
+  const browser = await chromium.launch({ headless: true });
+  const context = await browser.newContext({
+    locale: 'uk-UA',
+    geolocation: { latitude: 50.4501, longitude: 30.5234 },
+    permissions: ['geolocation'],
+    viewport: { width: 1280, height: 720 },
+  });
 
-//     await use(page);
-
-//     await context.close();
-//     await browser.close();
-//   },
-// });
+  const page = await context.newPage();
+  return { browser, context, page };
+}
