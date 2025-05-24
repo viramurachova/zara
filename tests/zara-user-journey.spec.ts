@@ -34,10 +34,9 @@ test.describe('Unauthenticated User Attempts to Register with Invalid Data Durin
     const mainPage = new MainPage(page);
     const itemName = 'top';
 
-    await page.goto('https://www.zara.com/');
-    await cookieConsentPage.goToStore();
+    await page.goto('https://www.zara.com/ua/en/');
     await cookieConsentPage.acceptCookies();
-    await cookieConsentPage.closePromoBannerIfVisible();
+    await cookieConsentPage.goToStore();
     
     await mainPage.clickSearchButton();
     await mainPage.fillSearchField(itemName);
@@ -58,10 +57,9 @@ test.describe('Unauthenticated User Attempts to Register with Invalid Data Durin
     const minSizes = 4;
 
     
-    await page.goto('https://www.zara.com/');
+    await page.goto('https://www.zara.com/ua/en/');
+    await cookieConsentPage.acceptCookies();
     await cookieConsentPage.goToStore();
-    await cookieConsentPage.acceptCookies();   
-    await cookieConsentPage.closePromoBannerIfVisible(); 
     
     await mainPage.clickSearchButton();
     await mainPage.fillSearchField(itemName);
@@ -87,29 +85,10 @@ test.describe('Unauthenticated User Attempts to Register with Invalid Data Durin
     const minSizes = 4;
 
     
-    await page.goto('https://www.zara.com/');
-    await page.addStyleTag({
-      content: `
-        #onetrust-consent-sdk,
-        .optanon-alert-box-wrapper,
-        .zds-cookie-banner,
-        .zds-dialog-geolocation,
-        .zds-dialog,
-        .zds-overlay,
-        [aria-label="Cookie banner"],
-        [aria-label="Preferences Center"],
-        [aria-label="Geolocation Modal"],
-        [aria-label="Close"]:not([data-qa-action]) {
-          display: none !important;
-          visibility: hidden !important;
-          pointer-events: none !important;
-        }
-      `
-    });
-    
-    await cookieConsentPage.goToStore();
+    await page.goto('https://www.zara.com/ua/en/');
     await cookieConsentPage.acceptCookies();
-    await cookieConsentPage.closePromoBannerIfVisible();
+    await cookieConsentPage.goToStore();
+    
 
     await mainPage.clickSearchButton();
     await mainPage.fillSearchField(itemName);
@@ -119,7 +98,7 @@ test.describe('Unauthenticated User Attempts to Register with Invalid Data Durin
     const productSizesInBag = await shoppingBagPage.getAllProductSizes();
     expect(productSizesInBag.length).toBeGreaterThan(0);
 
-    const remainingProductSizes = await shoppingBagPage.removeEverySecondItem();
+    await shoppingBagPage.removeEverySecondItem();
     const updatedProductSizesInBag = await shoppingBagPage.getAllProductSizes();
 
     const expectedRemainingSizes = productSizesInBag.filter((_, index) => index % 2 === 0);
