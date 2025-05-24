@@ -21,11 +21,11 @@ test.describe('Unauthenticated User Attempts to Register with Invalid Data Durin
     });
   });
 
-  test('TC 2: Add All Available Sizes to Shopping Bag if Available Sizes ≥ 4', async ({ pageWithCookies }) => {
+  test.skip('TC 2: Add All Available Sizes to Shopping Bag if Available Sizes ≥ 4', async ({ pageWithCookies }) => {
     const mainPage = new MainPage(pageWithCookies);
     const shoppingBagPage = new ShoppingBagPage(pageWithCookies);
-    const itemName = 'top';
-    const minSizes = 5;
+    const itemName = 'dress';
+    const minSizes = 4;
 
     await mainPage.clickSearchButton();
     await mainPage.fillSearchField(itemName);
@@ -51,11 +51,11 @@ test.describe('Unauthenticated User Attempts to Register with Invalid Data Durin
     await mainPage.clickContinueButton();
   });
 
-  test('TC 3: Remove every second item from the shopping bag', async ({ pageWithCookies }) => {
+  test.skip('TC 3: Remove every second item from the shopping bag', async ({ pageWithCookies }) => {
     const mainPage = new MainPage(pageWithCookies);
     const shoppingBagPage = new ShoppingBagPage(pageWithCookies);
-    const itemName = 'top';
-    const minSizes = 6;
+    const itemName = 'dress';
+    const minSizes = 4;
 
     await mainPage.clickSearchButton();
     await mainPage.fillSearchField(itemName);

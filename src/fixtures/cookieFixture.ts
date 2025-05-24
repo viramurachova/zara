@@ -19,25 +19,32 @@ export const test = base.extend<{
 
     const page: Page = await context.newPage();
 
-    // Додатково: мова інтерфейсу браузера
     await page.setExtraHTTPHeaders({
       'Accept-Language': 'en-US,en;q=0.9'
     });
 
-    // 🎯 Переходимо одразу на український сайт з англійською мовою
     await page.goto('https://www.zara.com/ua/en/');
 
-    // ✅ Лог для дебагу
-    console.log('🌐 Loaded URL:', await page.url());
+    await page.addStyleTag({
+      content: `
+        #onetrust-consent-sdk,
+        .optanon-alert-box-wrapper,
+        .zds-cookie-banner,
+        .zds-dialog-geolocation,
+        .zds-dialog,
+        .zds-overlay,
+        [aria-label="Cookie banner"],
+        [aria-label="Preferences Center"],
+        [aria-label="Geolocation Modal"],
+        [aria-label="Close"]:not([data-qa-action]) {
+          display: none !important;
+          visibility: hidden !important;
+          pointer-events: none !important;
+        }
+      `
+    });
 
-    const acceptCookiesButton = page.locator('#onetrust-accept-btn-handler');
-    const goToStoreButton = page.locator('[data-qa-action="stay-in-store"]');
-
-    await acceptCookiesButton.waitFor({ state: 'visible' });
-    await acceptCookiesButton.click();
-
-    await goToStoreButton.waitFor({ state: 'visible' });
-    await goToStoreButton.click();
+    console.log('Loaded URL:', await page.url());
 
     await use(page);
     await browser.close();
