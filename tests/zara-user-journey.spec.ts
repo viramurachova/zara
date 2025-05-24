@@ -1,16 +1,14 @@
-import { test, expect } from '@playwright/test';
+import { test } from '../src/fixtures/cookieFixture';
+import { expect } from '@playwright/test';
 import { MainPage } from '../src/pages/MainPage';
 import { ShoppingBagPage } from '../src/pages/ShoppingBagPage';
 
 test.describe('Unauthenticated User Attempts to Register with Invalid Data During Checkout', () => {
 
-  test('TC 1: Search Item by Name', async ({ page }) => {
-    const mainPage = new MainPage(page);
-    const itemName = 'dress';
+  test('TC 1: Search Item by Name', async ({ pageWithCookies }) => {
+    const mainPage = new MainPage(pageWithCookies);
+    const itemName = 'top';
 
-    await page.goto('/');
-    console.log(' Current URL:', page.url());
-    await page.screenshot({ path: 'screenshot.png' });
     await mainPage.clickSearchButton();
     await mainPage.fillSearchField(itemName);
 
@@ -23,15 +21,12 @@ test.describe('Unauthenticated User Attempts to Register with Invalid Data Durin
     });
   });
 
-  test('TC 2: Add All Available Sizes to Shopping Bag if Available Sizes ≥ 4', async ({ page }) => {
-    const mainPage = new MainPage(page);
+  test('TC 2: Add All Available Sizes to Shopping Bag if Available Sizes ≥ 4', async ({ pageWithCookies, page }) => {
+    const mainPage = new MainPage(pageWithCookies);
     const shoppingBagPage = new ShoppingBagPage(page);
-    const itemName = 'dress';
-    const minSizes = 4;
+    const itemName = 'top';
+    const minSizes = 5;
 
-    await page.goto('/');
-    console.log('Current URL:', page.url());
-    await page.screenshot({ path: 'screenshot.png' });
     await mainPage.clickSearchButton();
     await mainPage.fillSearchField(itemName);
 
@@ -56,15 +51,12 @@ test.describe('Unauthenticated User Attempts to Register with Invalid Data Durin
     await mainPage.clickContinueButton();
   });
 
-  test('TC 3: Remove every second item from the shopping bag', async ({ page }) => {
-    const mainPage = new MainPage(page);
+  test('TC 3: Remove every second item from the shopping bag', async ({ pageWithCookies, page }) => {
+    const mainPage = new MainPage(pageWithCookies);
     const shoppingBagPage = new ShoppingBagPage(page);
-    const itemName = 'dress';
-    const minSizes = 4;
+    const itemName = 'top';
+    const minSizes = 6;
 
-    await page.goto('/');
-    console.log('🌐 Current URL:', page.url());
-    await page.screenshot({ path: 'screenshot.png' });
     await mainPage.clickSearchButton();
     await mainPage.fillSearchField(itemName);
     await mainPage.addFirstItemWithEnoughSizes(minSizes);
@@ -73,7 +65,7 @@ test.describe('Unauthenticated User Attempts to Register with Invalid Data Durin
     const productSizesInBag = await shoppingBagPage.getAllProductSizes();
     expect(productSizesInBag.length).toBeGreaterThan(0);
 
-    await shoppingBagPage.removeEverySecondItem();
+    const remainingProductSizes = await shoppingBagPage.removeEverySecondItem();
     const updatedProductSizesInBag = await shoppingBagPage.getAllProductSizes();
 
     const expectedRemainingSizes = productSizesInBag.filter((_, index) => index % 2 === 0);

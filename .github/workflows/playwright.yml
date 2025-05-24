@@ -1,10 +1,10 @@
-name: Run Playwright Tests
+name: Run Playwright Tests with Stealth
 
 on:
   push:
     branches:
       - main  
-  pull_request:  
+  pull_request:
 
 jobs:
   test:
@@ -26,15 +26,8 @@ jobs:
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
 
-      - name: Restore zara-cookies-only.json from secret
-        run: |
-          mkdir -p storage
-          echo "$ZARA_COOKIES_BASE64" | base64 --decode > storage/zara-cookies-only.json
-        env:
-          ZARA_COOKIES_BASE64: ${{ secrets.ZARA_COOKIES_BASE64 }}
-
-      - name: Debug list contents of storage/
-        run: ls -lh storage
+      - name: Install stealth plugins
+        run: npm install playwright-extra puppeteer-extra-plugin-stealth --save-dev
 
       - name: Run Playwright tests
         run: npx playwright test

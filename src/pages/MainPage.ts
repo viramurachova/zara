@@ -36,7 +36,7 @@ export class MainPage {
   }
 
   async clickSearchButton(): Promise<void> {
-    await this.searchButton.waitFor({ state: 'visible', timeout: 10000 });
+    await this.searchButton.waitFor({ state: 'visible', timeout: 20000 });
     await this.searchButton.scrollIntoViewIfNeeded();
     await this.searchButton.click({ trial: true });
     await this.searchButton.click();

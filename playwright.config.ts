@@ -5,18 +5,15 @@ export default defineConfig({
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
-  workers: process.env.CI ? 1 : undefined,
+  workers: 1,
   reporter: 'html',
 
   use: {
     baseURL: 'https://www.zara.com/',
     viewport: { width: 1280, height: 720 },
     userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 13_0_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36',
-    storageState: 'storage/zara-cookies-only.json',
-    actionTimeout: 60 * 1000,
-    navigationTimeout: 60 * 1000
+    headless: true
   },
-  timeout: 150 * 1000,
   projects: [
     {
       name: 'chromium',

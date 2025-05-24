@@ -50,3 +50,5 @@ coverage/
 # Auth and cookies files
 # ====================
 zara-cookies-only.json
+zara-full-state.json
+/storage/
