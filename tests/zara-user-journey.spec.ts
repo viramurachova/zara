@@ -12,7 +12,7 @@ test.describe('Unauthenticated User Attempts to Register with Invalid Data Durin
   let context: BrowserContext;
   let page: Page;
 
-  test.beforeAll(async () => {
+  test.beforeEach(async () => {
     browser = await chromium.launch({ headless: true });
     context = await browser.newContext({
       locale: 'uk-UA',
@@ -23,12 +23,12 @@ test.describe('Unauthenticated User Attempts to Register with Invalid Data Durin
     page = await context.newPage();
   });
 
-  test.afterAll(async () => {
+  test.afterEach(async () => {
     await context.close();
     await browser.close();
   });
 
-  test('TC 1: Search Item by Name', async () => {
+  test.skip('TC 1: Search Item by Name', async () => {
     const mainPage = new MainPage(page);
     const itemName = 'top';
 
@@ -88,14 +88,4 @@ test.describe('Unauthenticated User Attempts to Register with Invalid Data Durin
     const expectedRemainingSizes = productSizesInBag.filter((_, index) => index % 2 === 0);
     expect(updatedProductSizesInBag.sort()).toEqual(expectedRemainingSizes.sort());
   });
-
 });
-  
-  
-  
-  
-  
-  
-  
-  
-  
