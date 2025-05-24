@@ -2,11 +2,13 @@ import { test } from '../src/fixtures/cookieFixture';
 import { expect } from '@playwright/test';
 import { MainPage } from '../src/pages/MainPage';
 import { ShoppingBagPage } from '../src/pages/ShoppingBagPage';
+import { launchStealthPage } from '../src/utils/stealthBrowser';
 
 test.describe('Unauthenticated User Attempts to Register with Invalid Data During Checkout', () => {
 
-  test('TC 1: Search Item by Name', async ({ pageWithCookies }) => {
-    const mainPage = new MainPage(pageWithCookies);
+  test('TC 1: Search Item by Name', async () => {
+    const page = await launchStealthPage(); 
+    const mainPage = new MainPage(page);
     const itemName = 'top';
 
     await mainPage.clickSearchButton();
@@ -21,9 +23,10 @@ test.describe('Unauthenticated User Attempts to Register with Invalid Data Durin
     });
   });
 
-  test('TC 2: Add All Available Sizes to Shopping Bag if Available Sizes ≥ 4', async ({ pageWithCookies }) => {
-    const mainPage = new MainPage(pageWithCookies);
-    const shoppingBagPage = new ShoppingBagPage(pageWithCookies);
+  test('TC 2: Add All Available Sizes to Shopping Bag if Available Sizes ≥ 4', async () => {
+    const page = await launchStealthPage();
+    const mainPage = new MainPage(page);
+    const shoppingBagPage = new ShoppingBagPage(page);
     const itemName = 'boots';
     const minSizes = 4;
 
@@ -51,9 +54,10 @@ test.describe('Unauthenticated User Attempts to Register with Invalid Data Durin
     await mainPage.clickContinueButton();
   });
 
-  test('TC 3: Remove every second item from the shopping bag', async ({ pageWithCookies }) => {
-    const mainPage = new MainPage(pageWithCookies);
-    const shoppingBagPage = new ShoppingBagPage(pageWithCookies);
+  test('TC 3: Remove every second item from the shopping bag', async () => {
+    const page = await launchStealthPage();
+    const mainPage = new MainPage(page);
+    const shoppingBagPage = new ShoppingBagPage(page);
     const itemName = 'boots';
     const minSizes = 4;
 
@@ -76,11 +80,13 @@ test.describe('Unauthenticated User Attempts to Register with Invalid Data Durin
     expect(updatedProductSizesInBag.sort()).toEqual(expectedRemainingSizes.sort());
   });
 
-  test.skip('TC 4:  Proceed to Checkout for Unauthenticated User ', async ({ page }) => {
+  test.skip('TC 4:  Proceed to Checkout for Unauthenticated User ', async () => {
+    const page = await launchStealthPage();
 
   });
 
-  test.skip('TC 5: Register with Incorrect Data and error handling', async ({ page }) => {
+  test.skip('TC 5: Register with Incorrect Data and error handling', async () => {
+    const page = await launchStealthPage();
 
   });
 
