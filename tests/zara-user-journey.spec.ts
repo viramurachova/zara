@@ -12,6 +12,19 @@ test.describe('Unauthenticated User Attempts to Register with Invalid Data Durin
     const mainPage = new MainPage(page);
     const itemName = 'top';
 
+    await page.goto('https://www.zara.com/ua/en/');
+
+    const acceptCookies = page.locator('#onetrust-accept-btn-handler');
+    if (await acceptCookies.isVisible({ timeout: 3000 })) {
+      await acceptCookies.click();
+    }
+
+    const stayInStore = page.locator('[data-qa-action="stay-in-store"]');
+    if (await stayInStore.isVisible({ timeout: 3000 })) {
+      await stayInStore.click();
+    }
+
+
     await mainPage.clickSearchButton();
     await mainPage.fillSearchField(itemName);
 
@@ -33,6 +46,19 @@ test.describe('Unauthenticated User Attempts to Register with Invalid Data Durin
     const shoppingBagPage = new ShoppingBagPage(page);
     const itemName = 'boots';
     const minSizes = 4;
+
+    await page.goto('https://www.zara.com/ua/en/');
+
+    const acceptCookies = page.locator('#onetrust-accept-btn-handler');
+    if (await acceptCookies.isVisible({ timeout: 3000 })) {
+      await acceptCookies.click();
+    }
+
+    const stayInStore = page.locator('[data-qa-action="stay-in-store"]');
+    if (await stayInStore.isVisible({ timeout: 3000 })) {
+      await stayInStore.click();
+    }
+
 
     await mainPage.clickSearchButton();
     await mainPage.fillSearchField(itemName);
@@ -67,6 +93,19 @@ test.describe('Unauthenticated User Attempts to Register with Invalid Data Durin
     const shoppingBagPage = new ShoppingBagPage(page);
     const itemName = 'boots';
     const minSizes = 4;
+
+    await page.goto('https://www.zara.com/ua/en/');
+
+    const acceptCookies = page.locator('#onetrust-accept-btn-handler');
+    if (await acceptCookies.isVisible({ timeout: 3000 })) {
+      await acceptCookies.click();
+    }
+
+    const stayInStore = page.locator('[data-qa-action="stay-in-store"]');
+    if (await stayInStore.isVisible({ timeout: 3000 })) {
+      await stayInStore.click();
+    }
+
 
     await mainPage.clickSearchButton();
     await mainPage.fillSearchField(itemName);
