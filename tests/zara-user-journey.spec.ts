@@ -36,12 +36,14 @@ test.describe('Unauthenticated User Attempts to Register with Invalid Data Durin
     const acceptCookiesButton = page.locator('#onetrust-accept-btn-handler');
     const goToStoreButton = page.locator('[data-qa-action="stay-in-store"]');
 
-    await acceptCookiesButton.waitFor({ state: 'visible' });
-    await acceptCookiesButton.click();
+    if (await acceptCookiesButton.isVisible({ timeout: 3000 })) {
+      await acceptCookiesButton.click();
+    }
+    if (await goToStoreButton.isVisible({ timeout: 3000 })) {
+      await goToStoreButton.click();
+    }
 
-    await goToStoreButton.waitFor({ state: 'visible' });
-    await goToStoreButton.click();
-    
+
     await mainPage.clickSearchButton();
     await mainPage.fillSearchField(itemName);
 
@@ -64,11 +66,12 @@ test.describe('Unauthenticated User Attempts to Register with Invalid Data Durin
     const acceptCookiesButton = page.locator('#onetrust-accept-btn-handler');
     const goToStoreButton = page.locator('[data-qa-action="stay-in-store"]');
 
-    await acceptCookiesButton.waitFor({ state: 'visible' });
-    await acceptCookiesButton.click();
-
-    await goToStoreButton.waitFor({ state: 'visible' });
-    await goToStoreButton.click();
+    if (await acceptCookiesButton.isVisible({ timeout: 3000 })) {
+      await acceptCookiesButton.click();
+    }
+    if (await goToStoreButton.isVisible({ timeout: 3000 })) {
+      await goToStoreButton.click();
+    }
 
     await mainPage.clickSearchButton();
     await mainPage.fillSearchField(itemName);
@@ -97,12 +100,12 @@ test.describe('Unauthenticated User Attempts to Register with Invalid Data Durin
     const acceptCookiesButton = page.locator('#onetrust-accept-btn-handler');
     const goToStoreButton = page.locator('[data-qa-action="stay-in-store"]');
 
-    await acceptCookiesButton.waitFor({ state: 'visible' });
-    await acceptCookiesButton.click();
-
-    await goToStoreButton.waitFor({ state: 'visible' });
-    await goToStoreButton.click();
-
+    if (await acceptCookiesButton.isVisible({ timeout: 3000 })) {
+      await acceptCookiesButton.click();
+    }
+    if (await goToStoreButton.isVisible({ timeout: 3000 })) {
+      await goToStoreButton.click();
+    }
 
     await mainPage.clickSearchButton();
     await mainPage.fillSearchField(itemName);
