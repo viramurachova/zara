@@ -7,7 +7,7 @@ extraChromium.use(StealthPlugin());
 export const test = base.extend<{
   pageWithCookies: Page;
 }>({
-  pageWithCookies: async ({}, use) => {
+  pageWithCookies: async ({ }, use) => {
     const browser: Browser = await extraChromium.launch({ headless: true });
 
     const context: BrowserContext = await browser.newContext({
@@ -27,19 +27,10 @@ export const test = base.extend<{
 
     await page.addStyleTag({
         content: `
-          #onetrust-consent-sdk,
-          .optanon-alert-box-wrapper,
           .zds-cookie-banner,
-          .zds-dialog-geolocation,
-          .zds-overlay,
-          .geolocation-modal__container,
-          [aria-label="Geolocation Modal"],
-          [aria-label="Cookie banner"],
-          [aria-label="Preferences Center"],
-          [aria-label="Close"]:not([data-qa-action]),
-          .zds-dialog,
-          .zds-modal,
-          .zds-backdrop {
+          .optanon-alert-box-wrapper,
+          #onetrust-consent-sdk,
+          .geolocation-modal__container {
             display: none !important;
             visibility: hidden !important;
             pointer-events: none !important;
