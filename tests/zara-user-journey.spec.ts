@@ -37,6 +37,7 @@ test.describe('Unauthenticated User Attempts to Register with Invalid Data Durin
     await page.goto('https://www.zara.com/');
     await cookieConsentPage.goToStore();
     await cookieConsentPage.acceptCookies();
+    await cookieConsentPage.closePromoBannerIfVisible();
     
     await mainPage.clickSearchButton();
     await mainPage.fillSearchField(itemName);
@@ -59,8 +60,9 @@ test.describe('Unauthenticated User Attempts to Register with Invalid Data Durin
     
     await page.goto('https://www.zara.com/');
     await cookieConsentPage.goToStore();
-    await cookieConsentPage.acceptCookies();
-
+    await cookieConsentPage.acceptCookies();   
+    await cookieConsentPage.closePromoBannerIfVisible(); 
+    
     await mainPage.clickSearchButton();
     await mainPage.fillSearchField(itemName);
 
@@ -88,6 +90,7 @@ test.describe('Unauthenticated User Attempts to Register with Invalid Data Durin
     await page.goto('https://www.zara.com/');
     await cookieConsentPage.goToStore();
     await cookieConsentPage.acceptCookies();
+    await cookieConsentPage.closePromoBannerIfVisible();
 
     await mainPage.clickSearchButton();
     await mainPage.fillSearchField(itemName);
