@@ -13,7 +13,6 @@ export class CookieConsentPage {
   }
 
   async acceptCookies(): Promise<void> {
-    //await this.page.goto('/');
     await this.acceptCookiesButton.waitFor({ state: 'visible', timeout: 10000 });
     await this.acceptCookiesButton.click();
   }
@@ -21,12 +20,6 @@ export class CookieConsentPage {
   async goToStore(): Promise<void> {
     await this.goToStoreButton.waitFor({ state: 'visible', timeout: 10000 });
     await this.goToStoreButton.click();
-  }
-
-  async closePromoBannerIfVisible(): Promise<void> {
-    if (await this.closePromoBannerButton.isVisible({ timeout: 3000 }).catch(() => false)) {
-      await this.closePromoBannerButton.click();
-    }
   }
 
 }

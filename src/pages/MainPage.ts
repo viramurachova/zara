@@ -23,7 +23,7 @@ export class MainPage {
     this.sizeSelector = page.locator('[data-qa-action="product-grid-open-size-selector"]');
     this.shoppingBag = page.locator('[data-qa-id="layout-header-go-to-cart"]');
     this.productName = page.locator('.product-grid-product-info__main-info');
-    this.availableSize = page.locator('.size-selector-sizes__size.size-selector-sizes-size.size-selector-sizes-size--enabled');
+    this.availableSize = page.locator('[data-qa-action]:is([data-qa-action="size-in-stock"], [data-qa-action="size-low-on-stock"])');
     this.lowAvailableSize = page.locator('[data-qa-action="size-low-on-stock"]');
     this.closeButton = page.locator('.zds-drawer-close-button');
     this.continueButton = page.locator('[data-qa-id="shop-continue"]');
